@@ -1,0 +1,4 @@
+variables:
+  JAVA_IMAGE: '$JAVA_IMAGE_BUILDER_JAVA_8'
+
+include: 'https://git.svt.se/videocore/gitlab-templates/raw/master/lib.yml'
