@@ -56,5 +56,3 @@ class RedissonAutoConfiguration {
         return queue
     }
 }
-
-

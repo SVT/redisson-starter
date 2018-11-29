@@ -12,7 +12,7 @@ import java.time.Duration
 class RedissonPropertiesTest {
 
     @Test
-    fun `all redis properties are set correctly` () {
+    fun `all redis properties are set correctly`() {
         val db = 2
         val uri = URI.create("redis://some-host:1234")
         val lockWaitTime = "10s"

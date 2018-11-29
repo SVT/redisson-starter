@@ -6,7 +6,6 @@ import se.svt.videocore.redisson.Assertions.assertThat
 import java.time.LocalDateTime
 import java.util.UUID
 
-
 internal class QueueItemTest {
 
     val now = LocalDateTime.now()
@@ -57,13 +56,12 @@ internal class QueueItemTest {
                 assertThat(item1.compareTo(item2))
                         .isGreaterThan(0)
             }
-
         }
 
         @Nested
         inner class WithSamePriorityAndSameCreationTime {
             @Test
-            fun `returns positive number if this has higher id than other` () {
+            fun `returns positive number if this has higher id than other`() {
                 val item1 = queueItem(id = "b")
                 val item2 = queueItem(id = "a")
                 assertThat(item1.compareTo(item2))
@@ -71,7 +69,7 @@ internal class QueueItemTest {
             }
 
             @Test
-            fun `returns negative number if this has lower id than other` () {
+            fun `returns negative number if this has lower id than other`() {
                 val item1 = queueItem(id = "a")
                 val item2 = queueItem(id = "b")
                 assertThat(item1.compareTo(item2))
@@ -79,7 +77,7 @@ internal class QueueItemTest {
             }
 
             @Test
-            fun `returns 0 if ids are equal` () {
+            fun `returns 0 if ids are equal`() {
                 val item1 = queueItem(id = "a")
                 val item2 = queueItem(id = item1.id)
                 assertThat(item1.compareTo(item2))
@@ -88,9 +86,6 @@ internal class QueueItemTest {
         }
     }
 
-
-
     fun queueItem(id: String = UUID.randomUUID().toString(), priority: Int = 0, created: LocalDateTime = now) =
             QueueItem(id, priority, created)
-
 }

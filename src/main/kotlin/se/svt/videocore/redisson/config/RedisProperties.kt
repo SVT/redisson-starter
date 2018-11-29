@@ -4,7 +4,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties
 import java.net.URI
 import java.time.Duration
 
-
 @ConfigurationProperties("redis")
 class RedisProperties {
     lateinit var uri: URI
@@ -24,8 +23,6 @@ class RedissonProperties {
     override fun toString(): String {
         return "RedissonProperties(lock=$lock, queue=$queue)"
     }
-
-
 }
 
 class RedissonLockProperties {
@@ -36,8 +33,6 @@ class RedissonLockProperties {
     override fun toString(): String {
         return "RedissonLockProperties(leaseTime=$leaseTime, waitTime=$waitTime, name='$name')"
     }
-
-
 }
 
 class RedissonQueueProperties {
@@ -46,6 +41,4 @@ class RedissonQueueProperties {
     override fun toString(): String {
         return "RedissonQueueProperties(name='$name')"
     }
-
-
 }

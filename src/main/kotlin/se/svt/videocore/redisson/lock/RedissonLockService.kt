@@ -9,17 +9,20 @@ import java.util.concurrent.TimeUnit
 
 @Service
 class RedissonLockService(
-        private val redissonClient: RedissonClient,
-        redisProperties: RedisProperties) {
+    private val redissonClient: RedissonClient,
+    redisProperties: RedisProperties
+) {
 
     private val log = KotlinLogging.logger {}
 
     private val lockProperties = redisProperties.redisson.lock
 
-    fun tryWithLock(lockName: String = lockProperties.name,
-                    waitTime: Duration = lockProperties.waitTime,
-                    leaseTime: Duration = lockProperties.leaseTime,
-                    action: () -> Unit): Boolean {
+    fun tryWithLock(
+        lockName: String = lockProperties.name,
+        waitTime: Duration = lockProperties.waitTime,
+        leaseTime: Duration = lockProperties.leaseTime,
+        action: () -> Unit
+    ): Boolean {
         val lock = redissonClient.getLock(lockName)
         log.debug { "Acquiring lock: $lockName" }
         if (lock.tryLock(waitTime.toMillis(), leaseTime.toMillis(), TimeUnit.MILLISECONDS)) {
