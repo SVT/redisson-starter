@@ -15,7 +15,7 @@ plugins {
 group = 'se.svt.videocore.lib'
 version scmVersion.version
 
-sourceCompatibility = 10
+sourceCompatibility = 1.8
 
 compileKotlin {
     kotlinOptions {
