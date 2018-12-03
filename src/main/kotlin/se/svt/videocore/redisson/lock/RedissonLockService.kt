@@ -2,7 +2,6 @@ package se.svt.videocore.redisson.lock
 
 import mu.KotlinLogging
 import org.redisson.api.RedissonClient
-import org.springframework.stereotype.Service
 import se.svt.videocore.redisson.config.RedisProperties
 import java.time.Duration
 import java.util.concurrent.TimeUnit
