@@ -48,6 +48,13 @@ redissonLockService.tryWithLock(name = "my-other-lock",
 }
 ```
 
+# Mocking the RedissonLockService
+Calling `RedissonLockService.tryWithLock` on a mockk object without specifiying all parameters will fail, because
+the default parameter values reference an instance field that will not be available. To get around this, a spy can
+be used instead:
+```
+private val redissonLockService = spyk(RedissonLockService(mockk(), mockk(relaxed = true)))
+``` 
 
 ### Contributing ###
 
