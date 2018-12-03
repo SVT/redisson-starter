@@ -7,7 +7,6 @@ import se.svt.videocore.redisson.config.RedisProperties
 import java.time.Duration
 import java.util.concurrent.TimeUnit
 
-@Service
 class RedissonLockService(
     private val redissonClient: RedissonClient,
     redisProperties: RedisProperties

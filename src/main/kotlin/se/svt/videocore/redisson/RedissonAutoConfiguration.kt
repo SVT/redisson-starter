@@ -11,11 +11,13 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
 import se.svt.videocore.redisson.config.RedisProperties
 import se.svt.videocore.redisson.lock.RedissonLockService
 import se.svt.videocore.redisson.queue.QueueItem
 
 @EnableConfigurationProperties(RedisProperties::class)
+@Configuration
 class RedissonAutoConfiguration {
 
     private val log = KotlinLogging.logger {}
