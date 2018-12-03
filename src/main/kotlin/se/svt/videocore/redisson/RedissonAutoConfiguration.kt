@@ -24,8 +24,8 @@ class RedissonAutoConfiguration {
 
     @ConditionalOnMissingBean
     @Bean
-    fun objectMapper() =
-            ObjectMapper()
+    fun objectMapper(): ObjectMapper =
+            ObjectMapper().findAndRegisterModules()
 
     @ConditionalOnMissingBean
     @Bean
@@ -54,8 +54,6 @@ class RedissonAutoConfiguration {
 
     @ConditionalOnProperty("redis.redisson.queue.name")
     @Bean
-    fun redissonPriorityQueue(redisProperties: RedisProperties, redisson: RedissonClient): RPriorityQueue<QueueItem> {
-        val queue = redisson.getPriorityQueue<QueueItem>(redisProperties.redisson.queue.name)
-        return queue
-    }
+    fun redissonPriorityQueue(redisProperties: RedisProperties, redisson: RedissonClient): RPriorityQueue<QueueItem> =
+            redisson.getPriorityQueue(redisProperties.redisson.queue.name)
 }
