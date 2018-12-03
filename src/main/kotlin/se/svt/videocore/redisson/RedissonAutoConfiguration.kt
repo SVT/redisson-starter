@@ -37,6 +37,7 @@ class RedissonAutoConfiguration {
                     useSingleServer()
                             .setDatabase(redisProperties.db)
                             .setAddress(redisProperties.uri.toString())
+                            .setTimeout(redisProperties.redisson.timeout.toMillis().toInt())
                 }
     }
 

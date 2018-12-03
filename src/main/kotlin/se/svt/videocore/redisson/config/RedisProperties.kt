@@ -17,6 +17,8 @@ class RedisProperties {
 }
 
 class RedissonProperties {
+    var timeout = Duration.ofMillis(3000)
+
     var lock = RedissonLockProperties()
 
     var queue = RedissonQueueProperties()

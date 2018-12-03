@@ -19,10 +19,12 @@ class RedissonPropertiesTest {
         val lockLeaseTime = "30s"
         val lockName = "the-lock"
         val queueName = "queue"
+        val timeout = "5s"
 
         val context = createApplicationContext(OnlyPropertiesConfiguration::class.java,
                 "redis.db" to db.toString(),
                 "redis.uri" to uri,
+                "redis.redisson.timeout" to timeout,
                 "redis.redisson.lock.wait-time" to lockWaitTime,
                 "redis.redisson.lock.lease-time" to lockLeaseTime,
                 "redis.redisson.lock.name" to lockName,
@@ -38,6 +40,7 @@ class RedissonPropertiesTest {
                 .hasUri(uri)
 
         assertThat(redisProperties.redisson)
+                .hasTimeout(Duration.ofSeconds(5))
                 .isNotNull
 
         assertThat(redisProperties.redisson.lock)
