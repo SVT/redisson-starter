@@ -22,9 +22,12 @@ class RedissonProperties {
     var lock = RedissonLockProperties()
 
     var queue = RedissonQueueProperties()
+    
     override fun toString(): String {
-        return "RedissonProperties(lock=$lock, queue=$queue)"
+        return "RedissonProperties(timeout=$timeout, lock=$lock, queue=$queue)"
     }
+
+
 }
 
 class RedissonLockProperties {
