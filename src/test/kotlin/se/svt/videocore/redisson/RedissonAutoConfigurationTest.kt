@@ -3,8 +3,8 @@ package se.svt.videocore.redisson
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import org.redisson.Redisson
 import org.redisson.api.RPriorityQueue
+import org.redisson.api.RedissonClient
 import org.redisson.config.Config
 import org.springframework.beans.factory.NoSuchBeanDefinitionException
 import se.svt.videocore.redisson.lock.RedissonLockService
@@ -29,9 +29,9 @@ class RedissonAutoConfigurationTest {
     }
 
     @Test
-    fun `Redisson bean is created`() {
+    fun `RedissonClient bean is created`() {
         val context = createApplicationContext(RedissonAutoConfiguration::class.java)
-        context.getBean(Redisson::class.java)
+        context.getBean(RedissonClient::class.java)
     }
 
     @Test

@@ -49,8 +49,8 @@ class RedissonAutoConfiguration {
 
     @ConditionalOnProperty("redis.redisson.lock.name")
     @Bean
-    fun redissonLockService(redisson: Redisson, redisProperties: RedisProperties) =
-            RedissonLockService(redisson, redisProperties)
+    fun redissonLockService(redissonClient: RedissonClient, redisProperties: RedisProperties) =
+            RedissonLockService(redissonClient, redisProperties)
 
     @ConditionalOnProperty("redis.redisson.queue.name")
     @Bean
