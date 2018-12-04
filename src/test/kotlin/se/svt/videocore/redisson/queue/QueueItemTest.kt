@@ -19,7 +19,7 @@ internal class QueueItemTest {
         fun `same item returns 0`() {
             val queueItem = queueItem()
             assertThat(queueItem.compareTo(queueItem))
-                    .isEqualTo(0)
+                .isEqualTo(0)
         }
 
         @Test
@@ -27,7 +27,7 @@ internal class QueueItemTest {
             val item1 = queueItem(priority = 0)
             val item2 = queueItem(priority = 1)
             assertThat(item1.compareTo(item2))
-                    .isGreaterThan(0)
+                .isGreaterThan(0)
         }
 
         @Test
@@ -35,7 +35,7 @@ internal class QueueItemTest {
             val item1 = queueItem(priority = 1)
             val item2 = queueItem(priority = 0)
             assertThat(item1.compareTo(item2))
-                    .isLessThan(0)
+                .isLessThan(0)
         }
 
         @Nested
@@ -46,7 +46,7 @@ internal class QueueItemTest {
                 val item1 = queueItem(created = oneHourAgo)
                 val item2 = queueItem(created = now)
                 assertThat(item1.compareTo(item2))
-                        .isLessThan(0)
+                    .isLessThan(0)
             }
 
             @Test
@@ -54,7 +54,7 @@ internal class QueueItemTest {
                 val item1 = queueItem(created = now)
                 val item2 = queueItem(created = oneHourAgo)
                 assertThat(item1.compareTo(item2))
-                        .isGreaterThan(0)
+                    .isGreaterThan(0)
             }
         }
 
@@ -65,7 +65,7 @@ internal class QueueItemTest {
                 val item1 = queueItem(id = "b")
                 val item2 = queueItem(id = "a")
                 assertThat(item1.compareTo(item2))
-                        .isGreaterThan(0)
+                    .isGreaterThan(0)
             }
 
             @Test
@@ -73,7 +73,7 @@ internal class QueueItemTest {
                 val item1 = queueItem(id = "a")
                 val item2 = queueItem(id = "b")
                 assertThat(item1.compareTo(item2))
-                        .isLessThan(0)
+                    .isLessThan(0)
             }
 
             @Test
@@ -81,11 +81,11 @@ internal class QueueItemTest {
                 val item1 = queueItem(id = "a")
                 val item2 = queueItem(id = item1.id)
                 assertThat(item1.compareTo(item2))
-                        .isEqualTo(0)
+                    .isEqualTo(0)
             }
         }
     }
 
     fun queueItem(id: String = UUID.randomUUID().toString(), priority: Int = 0, created: LocalDateTime = now) =
-            QueueItem(id, priority, created)
+        QueueItem(id, priority, created)
 }

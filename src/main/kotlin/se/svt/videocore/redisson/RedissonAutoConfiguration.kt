@@ -3,7 +3,6 @@ package se.svt.videocore.redisson
 import com.fasterxml.jackson.databind.ObjectMapper
 import mu.KotlinLogging
 import org.redisson.Redisson
-import org.redisson.api.RPriorityQueue
 import org.redisson.api.RedissonClient
 import org.redisson.codec.JsonJacksonCodec
 import org.redisson.config.Config
@@ -15,6 +14,7 @@ import org.springframework.context.annotation.Configuration
 import se.svt.videocore.redisson.config.RedisProperties
 import se.svt.videocore.redisson.lock.RedissonLockService
 import se.svt.videocore.redisson.queue.QueueItem
+import se.svt.videocore.redisson.queue.RedisonLibQueue
 
 @EnableConfigurationProperties(RedisProperties::class)
 @Configuration
@@ -25,20 +25,20 @@ class RedissonAutoConfiguration {
     @ConditionalOnMissingBean
     @Bean
     fun objectMapper(): ObjectMapper =
-            ObjectMapper().findAndRegisterModules()
+        ObjectMapper().findAndRegisterModules()
 
     @ConditionalOnMissingBean
     @Bean
     fun redissonConfig(redisProperties: RedisProperties, objectMapper: ObjectMapper): Config {
         log.debug { "Using $redisProperties" }
         return Config()
-                .setCodec(JsonJacksonCodec(objectMapper))
-                .apply {
-                    useSingleServer()
-                            .setDatabase(redisProperties.db)
-                            .setAddress(redisProperties.uri.toString())
-                            .setTimeout(redisProperties.redisson.timeout.toMillis().toInt())
-                }
+            .setCodec(JsonJacksonCodec(objectMapper))
+            .apply {
+                useSingleServer()
+                    .setDatabase(redisProperties.db)
+                    .setAddress(redisProperties.uri.toString())
+                    .setTimeout(redisProperties.redisson.timeout.toMillis().toInt())
+            }
     }
 
     @ConditionalOnMissingBean
@@ -50,10 +50,12 @@ class RedissonAutoConfiguration {
     @ConditionalOnProperty("redis.redisson.lock.name")
     @Bean
     fun redissonLockService(redissonClient: RedissonClient, redisProperties: RedisProperties) =
-            RedissonLockService(redissonClient, redisProperties)
+        RedissonLockService(redissonClient, redisProperties)
 
     @ConditionalOnProperty("redis.redisson.queue.name")
     @Bean
-    fun redissonPriorityQueue(redisProperties: RedisProperties, redisson: RedissonClient): RPriorityQueue<QueueItem> =
-            redisson.getPriorityQueue(redisProperties.redisson.queue.name)
+    fun redissonPriorityQueue(redisProperties: RedisProperties, redisson: RedissonClient): RedisonLibQueue {
+        val priorityQueue = redisson.getPriorityQueue<QueueItem>(redisProperties.redisson.queue.name)
+        return RedisonLibQueue(priorityQueue)
+    }
 }
