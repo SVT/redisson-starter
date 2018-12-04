@@ -54,6 +54,37 @@ class RedissonPropertiesTest {
                 .hasName(queueName)
     }
 
+    @Test
+    fun `not all redis properties are set`() {
+        val uri = URI.create("redis://some-host:1234")
+
+        val context = createApplicationContext(OnlyPropertiesConfiguration::class.java,
+            "redis.uri" to uri)
+
+        val redisProperties = context.getBean(RedisProperties::class.java)
+
+        System.out.println(redisProperties)
+
+        assertThat(redisProperties)
+            .isNotNull
+            .hasDb(0)
+            .hasUri(uri)
+
+        assertThat(redisProperties.redisson)
+            .isNotNull
+            .hasTimeout(Duration.ofSeconds(3))
+
+        assertThat(redisProperties.redisson.lock)
+            .isNotNull
+            .hasName(null)
+            .hasLeaseTime(Duration.ofMinutes(60))
+            .hasWaitTime(Duration.ZERO)
+
+        assertThat(redisProperties.redisson.queue)
+            .isNotNull
+            .hasName(null)
+    }
+
     @EnableConfigurationProperties(RedisProperties::class)
     @Configuration
     class OnlyPropertiesConfiguration

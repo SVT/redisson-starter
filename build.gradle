@@ -98,11 +98,11 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-autoconfigure:2.1.0.RELEASE'
     api 'org.redisson:redisson:3.9.1'
     testImplementation("org.assertj:assertj-core:3.11.1")
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.1.0.RELEASE'
     testImplementation 'se.svt.videocore.util:junit5-redis-extension:1.0.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
-    testImplementation 'io.mockk:mockk:1.8.9'
+    testImplementation 'io.mockk:mockk:1.8.13'
 }
 
 wrapper {

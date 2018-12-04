@@ -31,7 +31,7 @@ class RedissonProperties {
 class RedissonLockProperties {
     var leaseTime = Duration.ofMinutes(60)
     var waitTime = Duration.ZERO
-    lateinit var name: String
+    var name: String? = null
 
     override fun toString(): String {
         return "RedissonLockProperties(leaseTime=$leaseTime, waitTime=$waitTime, name='$name')"
@@ -39,7 +39,7 @@ class RedissonLockProperties {
 }
 
 class RedissonQueueProperties {
-    lateinit var name: String
+    var name: String? = null
 
     override fun toString(): String {
         return "RedissonQueueProperties(name='$name')"

@@ -5,6 +5,7 @@ import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.verify
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.redisson.api.RLock
 import org.redisson.api.RedissonClient
@@ -38,13 +39,16 @@ internal class LockServiceTest {
     private val mockAction = mockk<() -> Unit>()
     private val lockService = RedissonLockService(redissonClient, redisProperties)
 
-    @Test
-    fun `Lock acquisition is successful, invokes action`() {
+    @BeforeEach
+    fun `Setup test`() {
         every { redissonClient.getLock(defaultName) } returns lock
         every { lock.tryLock(any(), any(), any()) } returns true
         every { lock.unlock() } just Runs
         every { mockAction.invoke() } just Runs
+    }
 
+    @Test
+    fun `Lock acquisition is successful, invokes action`() {
         lockService.tryWithLock(action = mockAction)
 
         verify { redissonClient.getLock(defaultName) }
@@ -55,7 +59,6 @@ internal class LockServiceTest {
 
     @Test
     fun `Lock acquisition fails, does not invoke action`() {
-        every { redissonClient.getLock(defaultName) } returns lock
         every { lock.tryLock(any(), any(), any()) } returns false
 
         lockService.tryWithLock(action = mockAction)
@@ -71,10 +74,8 @@ internal class LockServiceTest {
         val name = UUID.randomUUID().toString()
         val waitTime = Duration.ofHours(1)
         val leaseTime = Duration.ofHours(5)
-        every { redissonClient.getLock(any()) } returns lock
-        every { lock.tryLock(any(), any(), any()) } returns true
-        every { lock.unlock() } just Runs
-        every { mockAction.invoke() } just Runs
+
+        every { redissonClient.getLock(name) } returns lock
 
         lockService.tryWithLock(name, waitTime, leaseTime, mockAction)
 

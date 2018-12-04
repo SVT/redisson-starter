@@ -16,16 +16,8 @@ schema
 
 .idea/*
 ## Videocore shared settings:
-!.idea/vcs.xml
-!.idea/codeStyleSettings.xml
-!.idea/encodings.xml
-!.idea/sqldialects.xml
+!.idea/codeStyles
+!.idea/codeStyles/Project.xml
+!.idea/codeStyles/codeStyleConfig.xml!.idea/encodings.xml
 !.idea/compiler.xml
-
-src/test/apt-test/
-src/main/apt
-
-*.un
-*.un~
-
-*.swp
+!.idea/vcs.xml
