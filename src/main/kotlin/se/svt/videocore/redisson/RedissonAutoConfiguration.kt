@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration
 import se.svt.videocore.redisson.config.RedisProperties
 import se.svt.videocore.redisson.lock.RedissonLockService
 import se.svt.videocore.redisson.queue.QueueItem
-import se.svt.videocore.redisson.queue.RedisonLibQueue
+import se.svt.videocore.redisson.queue.RedissonLibQueue
 
 @EnableConfigurationProperties(RedisProperties::class)
 @Configuration
@@ -54,8 +54,8 @@ class RedissonAutoConfiguration {
 
     @ConditionalOnProperty("redis.redisson.queue.name")
     @Bean
-    fun redissonPriorityQueue(redisProperties: RedisProperties, redisson: RedissonClient): RedisonLibQueue {
+    fun redissonPriorityQueue(redisProperties: RedisProperties, redisson: RedissonClient): RedissonLibQueue {
         val priorityQueue = redisson.getPriorityQueue<QueueItem>(redisProperties.redisson.queue.name)
-        return RedisonLibQueue(priorityQueue)
+        return RedissonLibQueue(priorityQueue)
     }
 }

@@ -8,7 +8,7 @@ import org.redisson.api.RedissonClient
 import org.redisson.config.Config
 import org.springframework.beans.factory.NoSuchBeanDefinitionException
 import se.svt.videocore.redisson.lock.RedissonLockService
-import se.svt.videocore.redisson.queue.RedisonLibQueue
+import se.svt.videocore.redisson.queue.RedissonLibQueue
 import se.svt.videocore.redisson.testutil.createApplicationContext
 import se.svt.videocore.util.junit5.redis.EmbeddedRedisExtension
 
@@ -56,7 +56,7 @@ class RedissonAutoConfigurationTest {
             RedissonAutoConfiguration::class.java,
             "redis.redisson.queue.name" to queueName
         )
-        context.getBean(RedisonLibQueue::class.java)
+        context.getBean(RedissonLibQueue::class.java)
     }
 
     @Test
