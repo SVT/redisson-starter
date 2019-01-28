@@ -7,6 +7,8 @@
     <bytecodeTargetLevel>
       <module name="redisson-starter_main" target="1.8" />
       <module name="redisson-starter_test" target="1.8" />
+      <module name="se.svt.videocore.lib.redisson-starter.main" target="1.8" />
+      <module name="se.svt.videocore.lib.redisson-starter.test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

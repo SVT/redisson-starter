@@ -7,10 +7,10 @@ import org.redisson.api.RPriorityQueue
 import org.redisson.api.RedissonClient
 import org.redisson.config.Config
 import org.springframework.beans.factory.NoSuchBeanDefinitionException
+import se.svt.util.junit5.redis.EmbeddedRedisExtension
 import se.svt.videocore.redisson.lock.RedissonLockService
 import se.svt.videocore.redisson.queue.RedissonLibQueue
 import se.svt.videocore.redisson.testutil.createApplicationContext
-import se.svt.videocore.util.junit5.redis.EmbeddedRedisExtension
 
 @ExtendWith(EmbeddedRedisExtension::class)
 class RedissonAutoConfigurationTest {
