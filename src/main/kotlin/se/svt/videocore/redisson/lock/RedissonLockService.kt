@@ -16,7 +16,7 @@ class RedissonLockService(
     private val lockProperties = redisProperties.redisson.lock
 
     fun tryWithLock(
-        lockName: String = lockProperties.name!!,
+        lockName: String = lockName(),
         waitTime: Duration = lockProperties.waitTime,
         leaseTime: Duration = lockProperties.leaseTime,
         action: () -> Unit
@@ -36,4 +36,7 @@ class RedissonLockService(
             false
         }
     }
+
+    // If been is created the name is always present. Used externally if
+    fun lockName(): String = lockProperties.name!!
 }
