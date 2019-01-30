@@ -78,11 +78,11 @@ internal class LockServiceTest {
         val waitTime = Duration.ofHours(1)
         val leaseTime = Duration.ofHours(5)
 
-        every { redissonClient.getLock(name) } returns lock
+        every { redissonClient.getLock(defaultName + name) } returns lock
 
         lockService.tryWithLock(name, waitTime, leaseTime, mockAction)
 
-        verify { redissonClient.getLock(name) }
+        verify { redissonClient.getLock(defaultName + name) }
         verify { lock.tryLock(waitTime.toMillis(), leaseTime.toMillis(), TimeUnit.MILLISECONDS) }
         verify { lock.unlock() }
         verify { mockAction.invoke() }
