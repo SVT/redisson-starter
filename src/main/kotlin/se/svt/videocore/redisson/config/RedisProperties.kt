@@ -31,10 +31,10 @@ class RedissonProperties {
 class RedissonLockProperties {
     var leaseTime = Duration.ofMinutes(60)
     var waitTime = Duration.ZERO
-    var name: String? = null
+    var namePrefix: String? = null
 
     override fun toString(): String {
-        return "RedissonLockProperties(leaseTime=$leaseTime, waitTime=$waitTime, name='$name')"
+        return "RedissonLockProperties(leaseTime=$leaseTime, waitTime=$waitTime, namePrefix='$namePrefix')"
     }
 }
 

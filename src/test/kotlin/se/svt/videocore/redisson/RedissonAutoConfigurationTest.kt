@@ -38,7 +38,7 @@ class RedissonAutoConfigurationTest {
     @Test
     fun `RedissonLockService bean is created if lock name property is set`() {
         val context =
-            createApplicationContext(RedissonAutoConfiguration::class.java, "redis.redisson.lock.name" to "test-lock")
+            createApplicationContext(RedissonAutoConfiguration::class.java, "redis.redisson.lock.name-prefix" to "test-lock")
         context.getBean(RedissonLockService::class.java)
     }
 

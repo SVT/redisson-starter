@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit
 
 internal class LockServiceTest {
 
-    private val defaultName = "the-test-lock"
+    private val defaultNamePrefix = "the-test-lock"
 
     private val defaultLeaseTime = Duration.ofSeconds(60)
 
@@ -27,7 +27,7 @@ internal class LockServiceTest {
     private val redisProperties = RedisProperties().apply {
         redisson = RedissonProperties().apply {
             lock = RedissonLockProperties().apply {
-                name = defaultName
+                namePrefix = defaultNamePrefix
                 this.waitTime = defaultWaitTime
                 this.leaseTime = defaultLeaseTime
             }
@@ -41,7 +41,7 @@ internal class LockServiceTest {
 
     @BeforeEach
     fun `Setup test`() {
-        every { redissonClient.getLock(defaultName) } returns lock
+        every { redissonClient.getLock(match { it.startsWith(defaultNamePrefix) }) } returns lock
         every { lock.tryLock(any(), any(), any()) } returns true
         every { lock.unlock() } just Runs
         every { mockAction.invoke() } just Runs
@@ -49,12 +49,11 @@ internal class LockServiceTest {
 
     @Test
     fun `Lock acquisition is successful, invokes action`() {
-        val suffix = "suffix"
-        every { redissonClient.getLock(defaultName + suffix) } returns lock
+        val lockName = "lockName"
 
-        lockService.tryWithLock(lockName = suffix, action = mockAction)
+        lockService.tryWithLock(lockName = lockName, action = mockAction)
 
-        verify { redissonClient.getLock(defaultName + suffix) }
+        verify { redissonClient.getLock(defaultNamePrefix + lockName) }
         verify { lock.tryLock(defaultWaitTime.toMillis(), defaultLeaseTime.toMillis(), TimeUnit.MILLISECONDS) }
         verify { lock.unlock() }
         verify { mockAction.invoke() }
@@ -63,10 +62,11 @@ internal class LockServiceTest {
     @Test
     fun `Lock acquisition fails, does not invoke action`() {
         every { lock.tryLock(any(), any(), any()) } returns false
+        val lockName = "lockName"
 
-        lockService.tryWithLock(action = mockAction)
+        lockService.tryWithLock(lockName = lockName, action = mockAction)
 
-        verify { redissonClient.getLock(defaultName) }
+        verify { redissonClient.getLock(defaultNamePrefix + lockName) }
         verify { lock.tryLock(defaultWaitTime.toMillis(), defaultLeaseTime.toMillis(), TimeUnit.MILLISECONDS) }
         verify(exactly = 0) { lock.unlock() }
         verify(exactly = 0) { mockAction.invoke() }
@@ -78,11 +78,9 @@ internal class LockServiceTest {
         val waitTime = Duration.ofHours(1)
         val leaseTime = Duration.ofHours(5)
 
-        every { redissonClient.getLock(defaultName + name) } returns lock
-
         lockService.tryWithLock(name, waitTime, leaseTime, mockAction)
 
-        verify { redissonClient.getLock(defaultName + name) }
+        verify { redissonClient.getLock(defaultNamePrefix + name) }
         verify { lock.tryLock(waitTime.toMillis(), leaseTime.toMillis(), TimeUnit.MILLISECONDS) }
         verify { lock.unlock() }
         verify { mockAction.invoke() }

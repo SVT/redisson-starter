@@ -28,7 +28,7 @@ class RedissonPropertiesTest {
             "redis.redisson.timeout" to timeout,
             "redis.redisson.lock.wait-time" to lockWaitTime,
             "redis.redisson.lock.lease-time" to lockLeaseTime,
-            "redis.redisson.lock.name" to lockName,
+            "redis.redisson.lock.name-prefix" to lockName,
             "redis.redisson.queue.name" to queueName
         )
 
@@ -49,7 +49,7 @@ class RedissonPropertiesTest {
             .isNotNull
             .hasLeaseTime(Duration.ofSeconds(30))
             .hasWaitTime(Duration.ofSeconds(10))
-            .hasName(lockName)
+            .hasNamePrefix(lockName)
 
         assertThat(redisProperties.redisson.queue)
             .isNotNull
@@ -80,7 +80,7 @@ class RedissonPropertiesTest {
 
         assertThat(redisProperties.redisson.lock)
             .isNotNull
-            .hasName(null)
+            .hasNamePrefix(null)
             .hasLeaseTime(Duration.ofMinutes(60))
             .hasWaitTime(Duration.ZERO)
 
