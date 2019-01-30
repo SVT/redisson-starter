@@ -16,12 +16,12 @@ class RedissonLockService(
     private val lockProperties = redisProperties.redisson.lock
 
     fun tryWithLock(
-        lockName: String = lockName(),
+        lockName: String? = "",
         waitTime: Duration = lockProperties.waitTime,
         leaseTime: Duration = lockProperties.leaseTime,
         action: () -> Unit
     ): Boolean {
-        val lock = redissonClient.getLock(lockName)
+        val lock = redissonClient.getLock(lockProperties.name!! + lockName)
         log.debug { "Acquiring lock: $lockName" }
         return if (lock.tryLock(waitTime.toMillis(), leaseTime.toMillis(), TimeUnit.MILLISECONDS)) {
             try {
@@ -36,7 +36,4 @@ class RedissonLockService(
             false
         }
     }
-
-    // If been is created the name is always present. Used externally if
-    fun lockName(): String = lockProperties.name!!
 }

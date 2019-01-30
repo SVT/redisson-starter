@@ -49,9 +49,12 @@ internal class LockServiceTest {
 
     @Test
     fun `Lock acquisition is successful, invokes action`() {
-        lockService.tryWithLock(action = mockAction)
+        val suffix = "suffix"
+        every { redissonClient.getLock(defaultName + suffix) } returns lock
 
-        verify { redissonClient.getLock(defaultName) }
+        lockService.tryWithLock(lockName = suffix, action = mockAction)
+
+        verify { redissonClient.getLock(defaultName + suffix) }
         verify { lock.tryLock(defaultWaitTime.toMillis(), defaultLeaseTime.toMillis(), TimeUnit.MILLISECONDS) }
         verify { lock.unlock() }
         verify { mockAction.invoke() }
