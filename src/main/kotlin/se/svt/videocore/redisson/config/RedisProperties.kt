@@ -10,14 +10,21 @@ class RedisProperties {
 
     var db = 0
 
+    var connectionPoolSize = 32
+
+    var subscriptionConnectionPoolSize = 25
+
+    var connectionMinimumIdleSize = 16
+
     var redisson = RedissonProperties()
+
     override fun toString(): String {
-        return "RedisProperties(uri=$uri, db=$db, redisson=$redisson)"
+        return "RedisProperties(uri=$uri, db=$db, connectionPoolSize=$connectionPoolSize, subscriptionConnectionPoolSize=$subscriptionConnectionPoolSize, connectionMinimumIdleSize=$connectionMinimumIdleSize, redisson=$redisson)"
     }
 }
 
 class RedissonProperties {
-    var timeout = Duration.ofMillis(3000)
+    var timeout = Duration.ofMillis(6000)
 
     var lock = RedissonLockProperties()
 

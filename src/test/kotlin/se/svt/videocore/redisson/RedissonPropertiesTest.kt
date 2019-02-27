@@ -20,11 +20,17 @@ class RedissonPropertiesTest {
         val lockName = "the-lock"
         val queueName = "queue"
         val timeout = "5s"
+        val connectionPoolSize = 12
+        val subscriptionConnectionPoolSize = 10
+        val connectionMinimumIdleSize = 8
 
         val context = createApplicationContext(
             OnlyPropertiesConfiguration::class.java,
             "redis.db" to db.toString(),
             "redis.uri" to uri,
+            "redis.connection-pool-size" to connectionPoolSize,
+            "redis.subscription-connection-pool-size" to subscriptionConnectionPoolSize,
+            "redis.connection-minimum-idle-size" to connectionMinimumIdleSize,
             "redis.redisson.timeout" to timeout,
             "redis.redisson.lock.wait-time" to lockWaitTime,
             "redis.redisson.lock.lease-time" to lockLeaseTime,
@@ -40,6 +46,9 @@ class RedissonPropertiesTest {
             .isNotNull
             .hasDb(db)
             .hasUri(uri)
+            .hasConnectionMinimumIdleSize(connectionMinimumIdleSize)
+            .hasConnectionPoolSize(connectionPoolSize)
+            .hasSubscriptionConnectionPoolSize(subscriptionConnectionPoolSize)
 
         assertThat(redisProperties.redisson)
             .hasTimeout(Duration.ofSeconds(5))
@@ -73,10 +82,13 @@ class RedissonPropertiesTest {
             .isNotNull
             .hasDb(0)
             .hasUri(uri)
+            .hasConnectionPoolSize(32)
+            .hasSubscriptionConnectionPoolSize(25)
+            .hasConnectionMinimumIdleSize(16)
 
         assertThat(redisProperties.redisson)
             .isNotNull
-            .hasTimeout(Duration.ofSeconds(3))
+            .hasTimeout(Duration.ofSeconds(6))
 
         assertThat(redisProperties.redisson.lock)
             .isNotNull

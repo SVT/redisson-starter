@@ -38,6 +38,9 @@ class RedissonAutoConfiguration {
                     .setDatabase(redisProperties.db)
                     .setAddress(redisProperties.uri.toString())
                     .setTimeout(redisProperties.redisson.timeout.toMillis().toInt())
+                    .setConnectionPoolSize(redisProperties.connectionPoolSize)
+                    .setConnectionMinimumIdleSize(redisProperties.connectionMinimumIdleSize)
+                    .setSubscriptionConnectionPoolSize(redisProperties.subscriptionConnectionPoolSize)
             }
     }
 
