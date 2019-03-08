@@ -15,6 +15,7 @@ class RedissonLockService(
 
     private val lockProperties = redisProperties.redisson.lock
 
+    @JvmOverloads
     fun tryWithLock(
         lockName: String,
         waitTime: Duration = lockProperties.waitTime,
