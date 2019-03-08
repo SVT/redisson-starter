@@ -6,7 +6,7 @@ import se.svt.videocore.redisson.config.RedisProperties
 import java.time.Duration
 import java.util.concurrent.TimeUnit
 
-class RedissonLockService(
+open class RedissonLockService(
     private val redissonClient: RedissonClient,
     redisProperties: RedisProperties
 ) {
@@ -16,7 +16,7 @@ class RedissonLockService(
     private val lockProperties = redisProperties.redisson.lock
 
     @JvmOverloads
-    fun tryWithLock(
+    open fun tryWithLock(
         lockName: String,
         waitTime: Duration = lockProperties.waitTime,
         leaseTime: Duration = lockProperties.leaseTime,
