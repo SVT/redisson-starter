@@ -36,7 +36,7 @@ class RedissonProperties {
 }
 
 class RedissonLockProperties {
-    var leaseTime = Duration.ofMinutes(60)
+    var leaseTime = Duration.ofMinutes(20)
     var waitTime = Duration.ZERO
     var namePrefix: String? = null
 
