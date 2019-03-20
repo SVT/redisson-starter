@@ -96,16 +96,16 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation 'org.springframework.boot:spring-boot:2.1.0.RELEASE'
     implementation 'org.springframework.boot:spring-boot-autoconfigure:2.1.0.RELEASE'
-    api 'org.redisson:redisson:3.10.1'
+    api 'org.redisson:redisson:3.10.5'
     testImplementation("org.assertj:assertj-core:3.11.1")
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.1.0.RELEASE'
     testImplementation 'se.svt.oss.junit5:junit5-redis-extension:1.0.1'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
-    testImplementation 'io.mockk:mockk:1.8.13'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.2'
+    testImplementation 'io.mockk:mockk:1.9.1'
 }
 
 wrapper {
     distributionType = Wrapper.DistributionType.ALL
-    gradleVersion = '4.10.2'
+    gradleVersion = '5.1.1'
 }
