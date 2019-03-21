@@ -93,7 +93,7 @@ class RedissonPropertiesTest {
         assertThat(redisProperties.redisson.lock)
             .isNotNull
             .hasNamePrefix(null)
-            .hasLeaseTime(Duration.ofMinutes(20))
+            .hasLeaseTime(Duration.ofMinutes(60))
             .hasWaitTime(Duration.ZERO)
 
         assertThat(redisProperties.redisson.queue)
