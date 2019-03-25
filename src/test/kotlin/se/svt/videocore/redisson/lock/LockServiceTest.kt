@@ -20,9 +20,8 @@ internal class LockServiceTest {
 
     private val defaultNamePrefix = "the-test-lock"
 
-    private val defaultLeaseTime = Duration.ofSeconds(60)
-
-    private val defaultWaitTime = Duration.ofSeconds(30)
+    private val defaultLeaseTime = Duration.ofMillis(-1)
+    private val defaultWaitTime = Duration.ZERO
 
     private val redisProperties = RedisProperties().apply {
         redisson = RedissonProperties().apply {
@@ -54,7 +53,21 @@ internal class LockServiceTest {
         lockService.tryWithLock(lockName = lockName, action = mockAction)
 
         verify { redissonClient.getLock(defaultNamePrefix + lockName) }
-        verify { lock.tryLock(defaultWaitTime.toMillis(), defaultLeaseTime.toMillis(), TimeUnit.MILLISECONDS) }
+        verify { lock.tryLock(0, -1, TimeUnit.MILLISECONDS) }
+        verify { lock.unlock() }
+        verify { mockAction.invoke() }
+    }
+
+    @Test
+    fun `Lock acquisition is successful, Test overrides`() {
+        val lockName = "lockName"
+
+        val leaseTime = Duration.ofSeconds(30)
+        val waitTime = Duration.ofSeconds(60)
+        lockService.tryWithLock(lockName = lockName, leaseTime = leaseTime, waitTime = waitTime, action = mockAction)
+
+        verify { redissonClient.getLock(defaultNamePrefix + lockName) }
+        verify { lock.tryLock(waitTime.toMillis(), leaseTime.toMillis(), TimeUnit.MILLISECONDS) }
         verify { lock.unlock() }
         verify { mockAction.invoke() }
     }

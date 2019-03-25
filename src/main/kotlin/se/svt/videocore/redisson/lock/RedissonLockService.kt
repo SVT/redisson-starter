@@ -29,6 +29,7 @@ open class RedissonLockService(
                 log.debug { "Acquired lock: $lockName" }
                 action.invoke()
             } finally {
+                log.debug { "Releasing lock in finally: $lockName" }
                 lock.unlock()
             }
             true
