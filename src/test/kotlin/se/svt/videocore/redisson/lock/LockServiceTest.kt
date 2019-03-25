@@ -60,6 +60,18 @@ internal class LockServiceTest {
     }
 
     @Test
+    fun `Lock acquisition is successful, Duration zero gives -1 l`() {
+        val lockName = "lockName"
+
+        lockService.tryWithLock(lockName = lockName, leaseTime = Duration.ZERO, action = mockAction)
+
+        verify { redissonClient.getLock(defaultNamePrefix + lockName) }
+        verify { lock.tryLock(defaultWaitTime.toMillis(), -1, TimeUnit.MILLISECONDS) }
+        verify { lock.unlock() }
+        verify { mockAction.invoke() }
+    }
+
+    @Test
     fun `Lock acquisition fails, does not invoke action`() {
         every { lock.tryLock(any(), any(), any()) } returns false
         val lockName = "lockName"

@@ -24,11 +24,12 @@ open class RedissonLockService(
     ): Boolean {
         val lock = redissonClient.getLock(lockProperties.namePrefix!! + lockName)
         log.debug { "Acquiring lock: $lockName" }
-        return if (lock.tryLock(waitTime.toMillis(), leaseTime.toMillis(), TimeUnit.MILLISECONDS)) {
+        return if (lock.tryLock(waitTime.toMillis(), leaseTimeInMillis(leaseTime), TimeUnit.MILLISECONDS)) {
             try {
                 log.debug { "Acquired lock: $lockName" }
                 action.invoke()
             } finally {
+                log.debug { "Releasing lock in finally: $lockName" }
                 lock.unlock()
             }
             true
@@ -36,5 +37,10 @@ open class RedissonLockService(
             log.debug { "Failed to acquired lock: $lockName" }
             false
         }
+    }
+
+    // Transform marker from conf for watchdog extends every 30th seconds automatically (-1)
+    private fun leaseTimeInMillis(leaseTime: Duration): Long {
+        return if (leaseTime == Duration.ZERO) -1 else leaseTime.toMillis()
     }
 }
