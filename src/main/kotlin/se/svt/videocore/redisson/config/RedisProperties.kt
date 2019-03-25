@@ -36,7 +36,7 @@ class RedissonProperties {
 }
 
 class RedissonLockProperties {
-    var leaseTime = Duration.ZERO // Marker for watchdog extends every 30th seconds automatically
+    var leaseTime = Duration.ofMillis(-1)
     var waitTime = Duration.ZERO
     var namePrefix: String? = null
 
