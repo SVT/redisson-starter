@@ -3,5 +3,4 @@ variables:
 
 include:
   - project: 'videocore/gitlab-templates'
-    ref: CS-2033
     file: 'lib.yml'
