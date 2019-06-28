@@ -7,12 +7,13 @@ import java.time.Duration
 @ConfigurationProperties("redis")
 class RedisProperties {
     lateinit var uri: URI
-
     var db = 0
 
     var connectionPoolSize = 32
 
     var subscriptionConnectionPoolSize = 25
+
+    var subscriptionsPerConnection = 5
 
     var connectionMinimumIdleSize = 16
 

@@ -41,6 +41,7 @@ class RedissonAutoConfiguration {
                     .setConnectionPoolSize(redisProperties.connectionPoolSize)
                     .setConnectionMinimumIdleSize(redisProperties.connectionMinimumIdleSize)
                     .setSubscriptionConnectionPoolSize(redisProperties.subscriptionConnectionPoolSize)
+                    .setSubscriptionsPerConnection(redisProperties.subscriptionsPerConnection)
             }
     }
 

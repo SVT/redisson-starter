@@ -22,6 +22,7 @@ class RedissonPropertiesTest {
         val timeout = "5s"
         val connectionPoolSize = 12
         val subscriptionConnectionPoolSize = 10
+        val subscriptionsPerConnection = 10
         val connectionMinimumIdleSize = 8
 
         val context = createApplicationContext(
@@ -29,6 +30,7 @@ class RedissonPropertiesTest {
             "redis.db" to db.toString(),
             "redis.uri" to uri,
             "redis.connection-pool-size" to connectionPoolSize,
+            "redis.subscriptions-per-connection" to subscriptionsPerConnection,
             "redis.subscription-connection-pool-size" to subscriptionConnectionPoolSize,
             "redis.connection-minimum-idle-size" to connectionMinimumIdleSize,
             "redis.redisson.timeout" to timeout,
@@ -48,6 +50,7 @@ class RedissonPropertiesTest {
             .hasUri(uri)
             .hasConnectionMinimumIdleSize(connectionMinimumIdleSize)
             .hasConnectionPoolSize(connectionPoolSize)
+            .hasSubscriptionsPerConnection(subscriptionsPerConnection)
             .hasSubscriptionConnectionPoolSize(subscriptionConnectionPoolSize)
 
         assertThat(redisProperties.redisson)
