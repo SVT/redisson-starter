@@ -1,21 +1,21 @@
 package se.svt.videocore.redisson.config
 
-import org.springframework.boot.context.properties.ConfigurationProperties
 import java.net.URI
 import java.time.Duration
+import org.springframework.boot.context.properties.ConfigurationProperties
 
 @ConfigurationProperties("redis")
 class RedisProperties {
     lateinit var uri: URI
     var db = 0
 
-    var connectionPoolSize = 32
+    var connectionPoolSize: Int? = null
 
-    var subscriptionConnectionPoolSize = 25
+    var subscriptionConnectionPoolSize: Int? = null
 
-    var subscriptionsPerConnection = 5
+    var subscriptionsPerConnection: Int? = null
 
-    var connectionMinimumIdleSize = 16
+    var connectionMinimumIdleSize: Int? = null
 
     var redisson = RedissonProperties()
 
