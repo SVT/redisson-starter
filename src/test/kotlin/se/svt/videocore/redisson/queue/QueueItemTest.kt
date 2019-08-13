@@ -1,10 +1,10 @@
 package se.svt.videocore.redisson.queue
 
+import java.time.LocalDateTime
+import java.util.UUID
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import se.svt.videocore.redisson.Assertions.assertThat
-import java.time.LocalDateTime
-import java.util.UUID
 
 internal class QueueItemTest {
 

@@ -1,10 +1,10 @@
 package se.svt.videocore.redisson.lock
 
+import java.time.Duration
+import java.util.concurrent.TimeUnit
 import mu.KotlinLogging
 import org.redisson.api.RedissonClient
 import se.svt.videocore.redisson.config.RedisProperties
-import java.time.Duration
-import java.util.concurrent.TimeUnit
 
 open class RedissonLockService(
     private val redissonClient: RedissonClient,

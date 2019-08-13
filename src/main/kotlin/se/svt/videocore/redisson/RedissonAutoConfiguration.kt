@@ -6,6 +6,7 @@ import org.redisson.Redisson
 import org.redisson.api.RedissonClient
 import org.redisson.codec.JsonJacksonCodec
 import org.redisson.config.Config
+import org.redisson.config.SingleServerConfig
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.boot.context.properties.EnableConfigurationProperties
@@ -38,10 +39,12 @@ class RedissonAutoConfiguration {
                     .setDatabase(redisProperties.db)
                     .setAddress(redisProperties.uri.toString())
                     .setTimeout(redisProperties.redisson.timeout.toMillis().toInt())
-                    .setConnectionPoolSize(redisProperties.connectionPoolSize)
-                    .setConnectionMinimumIdleSize(redisProperties.connectionMinimumIdleSize)
-                    .setSubscriptionConnectionPoolSize(redisProperties.subscriptionConnectionPoolSize)
-                    .setSubscriptionsPerConnection(redisProperties.subscriptionsPerConnection)
+                    .apply {
+                        setConnectionPoolSize(redisProperties, this)
+                        setSubscriptionConnectionPoolSize(redisProperties, this)
+                        setSubscriptionsPerConnection(redisProperties, this)
+                        setConnectionMinimumIdleSize(redisProperties, this)
+                    }
             }
     }
 
@@ -62,4 +65,24 @@ class RedissonAutoConfiguration {
         val priorityQueue = redisson.getPriorityQueue<QueueItem>(redisProperties.redisson.queue.name)
         return RedissonLibQueue(priorityQueue)
     }
+
+    private fun setConnectionPoolSize(redisProperties: RedisProperties, config: SingleServerConfig) =
+        redisProperties.connectionPoolSize?.let {
+            config.setConnectionPoolSize(it)
+        }
+
+    private fun setSubscriptionConnectionPoolSize(redisProperties: RedisProperties, config: SingleServerConfig) =
+        redisProperties.subscriptionConnectionPoolSize?.let {
+            config.setSubscriptionConnectionPoolSize(it)
+        }
+
+    private fun setSubscriptionsPerConnection(redisProperties: RedisProperties, config: SingleServerConfig) =
+        redisProperties.subscriptionsPerConnection?.let {
+            config.setSubscriptionConnectionPoolSize(it)
+        }
+
+    private fun setConnectionMinimumIdleSize(redisProperties: RedisProperties, config: SingleServerConfig) =
+        redisProperties.connectionMinimumIdleSize?.let {
+            config.setConnectionMinimumIdleSize(it)
+        }
 }

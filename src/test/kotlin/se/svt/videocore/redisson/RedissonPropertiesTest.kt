@@ -1,13 +1,13 @@
 package se.svt.videocore.redisson
 
+import java.net.URI
+import java.time.Duration
 import org.junit.jupiter.api.Test
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Configuration
 import se.svt.videocore.redisson.Assertions.assertThat
 import se.svt.videocore.redisson.config.RedisProperties
 import se.svt.videocore.redisson.testutil.createApplicationContext
-import java.net.URI
-import java.time.Duration
 
 class RedissonPropertiesTest {
 
@@ -85,9 +85,9 @@ class RedissonPropertiesTest {
             .isNotNull
             .hasDb(0)
             .hasUri(uri)
-            .hasConnectionPoolSize(32)
-            .hasSubscriptionConnectionPoolSize(25)
-            .hasConnectionMinimumIdleSize(16)
+            .hasConnectionPoolSize(null)
+            .hasSubscriptionConnectionPoolSize(null)
+            .hasConnectionMinimumIdleSize(null)
 
         assertThat(redisProperties.redisson)
             .isNotNull
