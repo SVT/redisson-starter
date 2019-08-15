@@ -34,6 +34,7 @@ class RedissonAutoConfiguration {
         log.debug { "Using $redisProperties" }
         return Config()
             .setCodec(JsonJacksonCodec(objectMapper))
+            .setNettyThreads(64)
             .apply {
                 useSingleServer()
                     .setDatabase(redisProperties.db)
