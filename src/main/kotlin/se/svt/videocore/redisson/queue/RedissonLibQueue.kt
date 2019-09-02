@@ -1,5 +1,5 @@
 package se.svt.videocore.redisson.queue
 
-import java.util.Queue
+import java.util.concurrent.BlockingQueue
 
-class RedissonLibQueue(private val queue: Queue<QueueItem>) : Queue<QueueItem> by queue
+class RedissonLibQueue(private val queue: BlockingQueue<QueueItem>) : BlockingQueue<QueueItem> by queue

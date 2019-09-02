@@ -40,6 +40,7 @@ class RedissonAutoConfiguration {
                     .setDatabase(redisProperties.db)
                     .setAddress(redisProperties.uri.toString())
                     .setTimeout(redisProperties.redisson.timeout.toMillis().toInt())
+                    .setDnsMonitoringInterval(-1)
                     .apply {
                         setConnectionPoolSize(redisProperties, this)
                         setSubscriptionConnectionPoolSize(redisProperties, this)
@@ -63,7 +64,7 @@ class RedissonAutoConfiguration {
     @ConditionalOnProperty("redis.redisson.queue.name")
     @Bean
     fun redissonPriorityQueue(redisProperties: RedisProperties, redisson: RedissonClient): RedissonLibQueue {
-        val priorityQueue = redisson.getPriorityQueue<QueueItem>(redisProperties.redisson.queue.name)
+        val priorityQueue = redisson.getPriorityBlockingQueue<QueueItem>(redisProperties.redisson.queue.name)
         return RedissonLibQueue(priorityQueue)
     }
 
