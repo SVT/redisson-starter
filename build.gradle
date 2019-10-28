@@ -58,9 +58,9 @@ publishing {
                 maven {
                     ext {
                         if (project.version.endsWith('-SNAPSHOT')) {
-                            url "http://svtrepo.jfrog.io/svtrepo/libs-snapshots-local"
+                            url "https://svtrepo.jfrog.io/svtrepo/libs-snapshots-local"
                         } else {
-                            url "http://svtrepo.jfrog.io/svtrepo/libs-releases-local"
+                            url "https://svtrepo.jfrog.io/svtrepo/libs-releases-local"
                         }
 
                         credentials {
