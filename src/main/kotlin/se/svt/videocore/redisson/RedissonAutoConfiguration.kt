@@ -80,7 +80,7 @@ class RedissonAutoConfiguration {
 
     private fun setSubscriptionsPerConnection(redisProperties: RedisProperties, config: SingleServerConfig) =
         redisProperties.subscriptionsPerConnection?.let {
-            config.setSubscriptionConnectionPoolSize(it)
+            config.setSubscriptionsPerConnection(it)
         }
 
     private fun setConnectionMinimumIdleSize(redisProperties: RedisProperties, config: SingleServerConfig) =
