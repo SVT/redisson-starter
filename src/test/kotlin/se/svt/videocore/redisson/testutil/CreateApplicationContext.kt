@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2020 Sveriges Television AB
+//
+// SPDX-License-Identifier: Apache-2.0
+
 package se.svt.videocore.redisson.testutil
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext
