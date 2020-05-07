@@ -1,6 +1,0 @@
-variables:
-  JAVA_IMAGE: '$JAVA_IMAGE_BUILDER_JAVA_8'
-
-include:
-  - project: 'videocore/gitlab-templates'
-    file: 'lib.yml'
