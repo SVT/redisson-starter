@@ -1,15 +1,18 @@
 redisson-starter
 ===
 
-This library configures redisson as it is commonly used in core systems. In addition to configuring the redisson
-client, it also optionaly configures a RedissonLockService (if `redis.redisson.lock.name` property is set)
-and a redison priorityqueue (if `redis.redisson.queue.name property` is set)
+Spring boot starter that configures a [redisson](https://github.com/redisson/redisson) client.
+ In addition to configuring the redisson client, it also optionally provides additional services for working with
+ redisson locks and queues:
+ 
+ - **RedissonLockService**
+ A service that provied a ```tryWithLock``` method that uses a redisson lock. A bean will be provided 
+ if `redis.redisson.lock.name-prefix` property is set.
+ - **RedissonLibQeueue**
+If `redis.redisson.queue.name property` is set, a redisson priority queue will be
+provided.
 
-
-### Owner ###
-
-***Videocore*** i-core@svt.se, #video-core
-
+This library is written in kotlin.
 
 ### Usage ###
 
@@ -62,19 +65,18 @@ private val redissonLockService = spyk(RedissonLockService(mockk(), mockk(relaxe
 
 run `./gradlew check` for unit tests and code quality checks
   
-  
-#### Publishing ####
+## Update version and release to jcenter/bintray (for maintainers)
 
-* Stable version:
-  
-```
->./gradlew release
->./gradlew publish
+1. Make sure you are on master branch and that everything is pushed to master
+2. ./gradlew release to tag a new version (uses Axion release plugin - needs ssh key for repo)
+3.  ./gradlew bintrayUpload to upload to repo - needs BINTRAY_KEY and BINTRAY_USER environment variables
 
-```
-* Snapshot version:
-  
-```
-./gradlew publish -Prelease.forceSnapshot
+## License
 
-```
+Copyright 2020 Sveriges Television AB
+
+This software is released under the Apache 2.0 License.
+
+## Primary Maintainers
+
+Gustav Grusell https://github.com/grusell
