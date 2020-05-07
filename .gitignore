@@ -8,16 +8,9 @@ coverage-error.log
 
 # Gradle 4.1 + IntelliJ build directory:
 out/
-gradlew.bat
 
 *.log
 .gradle
 schema
 
-.idea/*
-## Videocore shared settings:
-!.idea/codeStyles
-!.idea/codeStyles/Project.xml
-!.idea/codeStyles/codeStyleConfig.xml!.idea/encodings.xml
-!.idea/compiler.xml
-!.idea/vcs.xml
+.idea
