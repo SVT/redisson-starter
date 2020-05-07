@@ -2,13 +2,13 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-package se.svt.videocore.redisson.queue
+package se.svt.oss.redisson.starter.queue
 
 import java.time.LocalDateTime
 import java.util.UUID
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import se.svt.videocore.redisson.Assertions.assertThat
+import se.svt.oss.redisson.starter.Assertions.assertThat
 
 internal class QueueItemTest {
 

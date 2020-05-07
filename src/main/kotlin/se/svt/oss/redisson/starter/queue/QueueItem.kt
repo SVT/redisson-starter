@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-package se.svt.videocore.redisson.queue
+package se.svt.oss.redisson.starter.queue
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import java.time.LocalDateTime

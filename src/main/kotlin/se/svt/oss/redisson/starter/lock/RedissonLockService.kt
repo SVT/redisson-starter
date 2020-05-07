@@ -2,13 +2,13 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-package se.svt.videocore.redisson.lock
+package se.svt.oss.redisson.starter.lock
 
 import java.time.Duration
 import java.util.concurrent.TimeUnit
 import mu.KotlinLogging
 import org.redisson.api.RedissonClient
-import se.svt.videocore.redisson.config.RedisProperties
+import se.svt.oss.redisson.starter.config.RedisProperties
 
 open class RedissonLockService(
     private val redissonClient: RedissonClient,

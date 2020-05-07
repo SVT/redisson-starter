@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-package se.svt.videocore.redisson.config
+package se.svt.oss.redisson.starter.config
 
 import java.net.URI
 import java.time.Duration

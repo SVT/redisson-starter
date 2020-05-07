@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-package se.svt.videocore.redisson.queue
+package se.svt.oss.redisson.starter.queue
 
 import java.util.concurrent.BlockingQueue
 

@@ -2,16 +2,16 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-package se.svt.videocore.redisson
+package se.svt.oss.redisson.starter
 
 import java.net.URI
 import java.time.Duration
 import org.junit.jupiter.api.Test
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Configuration
-import se.svt.videocore.redisson.Assertions.assertThat
-import se.svt.videocore.redisson.config.RedisProperties
-import se.svt.videocore.redisson.testutil.createApplicationContext
+import se.svt.oss.redisson.starter.Assertions.assertThat
+import se.svt.oss.redisson.starter.config.RedisProperties
+import se.svt.oss.redisson.starter.testutil.createApplicationContext
 
 class RedissonPropertiesTest {
 

@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-package se.svt.videocore.redisson.lock
+package se.svt.oss.redisson.starter.lock
 
 import io.mockk.Runs
 import io.mockk.every
@@ -16,9 +16,9 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.redisson.api.RLock
 import org.redisson.api.RedissonClient
-import se.svt.videocore.redisson.config.RedisProperties
-import se.svt.videocore.redisson.config.RedissonLockProperties
-import se.svt.videocore.redisson.config.RedissonProperties
+import se.svt.oss.redisson.starter.config.RedisProperties
+import se.svt.oss.redisson.starter.config.RedissonLockProperties
+import se.svt.oss.redisson.starter.config.RedissonProperties
 
 internal class LockServiceTest {
 
@@ -40,7 +40,8 @@ internal class LockServiceTest {
     private val redissonClient = mockk<RedissonClient>()
     private val lock = mockk<RLock>()
     private val mockAction = mockk<() -> Unit>()
-    private val lockService = RedissonLockService(redissonClient, redisProperties)
+    private val lockService =
+        RedissonLockService(redissonClient, redisProperties)
 
     @BeforeEach
     fun `Setup test`() {

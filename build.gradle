@@ -12,7 +12,7 @@ plugins {
     id 'com.github.fhermansson.assertj-generator' version '1.1.2'
 }
 
-group = 'se.svt.videocore.lib'
+group = 'se.svt.oss'
 version scmVersion.version
 
 sourceCompatibility = 1.8
@@ -32,8 +32,8 @@ compileTestKotlin {
 }
 
 assertjGenerator {
-    classOrPackageNames = ['se.svt.videocore.redisson.config']
-    entryPointPackage = 'se.svt.videocore.redisson'
+    classOrPackageNames = ['se.svt.oss.redisson.starter.config']
+    entryPointPackage = 'se.svt.oss.redisson.starter'
     entryPointTypes = ['STANDARD', 'SOFT']
 }
 
