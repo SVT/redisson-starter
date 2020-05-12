@@ -7,11 +7,17 @@ import org.redisson.api.RedissonClient
 import org.redisson.codec.JsonJacksonCodec
 import org.redisson.config.Config
 import org.redisson.config.SingleServerConfig
+import org.redisson.spring.data.connection.RedissonConnectionFactory
+import org.springframework.boot.actuate.health.Health
+import org.springframework.boot.actuate.health.Health.Builder
+import org.springframework.boot.actuate.health.HealthIndicator
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.data.redis.connection.RedisConnection
+import org.springframework.data.redis.core.RedisConnectionUtils
 import se.svt.videocore.redisson.config.RedisProperties
 import se.svt.videocore.redisson.lock.RedissonLockService
 import se.svt.videocore.redisson.queue.QueueItem
@@ -54,6 +60,25 @@ class RedissonAutoConfiguration {
     @Bean(destroyMethod = "shutdown")
     fun redissonClient(config: Config): RedissonClient {
         return Redisson.create(config)
+    }
+
+    @ConditionalOnProperty("redis.redisson.health")
+    @Bean
+    fun redisCustomHealthIndicator(): HealthIndicator = HealthIndicator {
+        lateinit var connection: RedisConnection
+        val redisConnectionFactory = RedissonConnectionFactory()
+        try {
+            connection = RedisConnectionUtils.getConnection(redisConnectionFactory)
+            val response: String? = connection.ping()
+            val builder: Builder = if ("PONG" == response) Health.up() else Health.down()
+            builder.build()
+        } catch (e: Exception) {
+            Health.down()
+                .withDetail("error", e.message)
+                .build()
+        } finally {
+            RedisConnectionUtils.releaseConnection(connection, redisConnectionFactory, false)
+        }
     }
 
     @ConditionalOnProperty("redis.redisson.lock.name-prefix")
