@@ -36,6 +36,25 @@ class RedissonAutoConfigurationTest {
     }
 
     @Test
+    fun `Redis custom health check is created if property is set`() {
+        val context = createApplicationContext(
+            RedissonAutoConfiguration::class.java,
+            "redis.redisson.health" to true
+        )
+        context.getBean("redisCustomHealthIndicator")
+    }
+
+    @Test
+    fun `Redis custom health check is not created if property is set`() {
+        val context = createApplicationContext(
+            RedissonAutoConfiguration::class.java,
+            "redis.redisson.health" to false
+        )
+        Assertions.assertThatThrownBy { context.getBean("redisCustomHealthIndicator") }
+            .isInstanceOf(NoSuchBeanDefinitionException::class.java)
+    }
+
+    @Test
     fun `RedissonLockService bean is created if lock name property is set`() {
         val context =
             createApplicationContext(RedissonAutoConfiguration::class.java, "redis.redisson.lock.name-prefix" to "test-lock")
