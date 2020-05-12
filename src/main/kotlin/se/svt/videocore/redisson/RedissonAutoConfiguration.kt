@@ -64,9 +64,9 @@ class RedissonAutoConfiguration {
 
     @ConditionalOnProperty("redis.redisson.health")
     @Bean
-    fun redisCustomHealthIndicator(): HealthIndicator = HealthIndicator {
+    fun redisCustomHealthIndicator(redissonClient: RedissonClient): HealthIndicator = HealthIndicator {
         lateinit var connection: RedisConnection
-        val redisConnectionFactory = RedissonConnectionFactory()
+        val redisConnectionFactory = RedissonConnectionFactory(redissonClient)
         try {
             connection = RedisConnectionUtils.getConnection(redisConnectionFactory)
             val response: String? = connection.ping()
