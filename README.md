@@ -80,4 +80,4 @@ This software is released under the Apache 2.0 License.
 
 ## Primary Maintainers
 
-Gustav Grusell https://github.com/grusell
+SVT Videocore team <videocore@teams.svt.se>
