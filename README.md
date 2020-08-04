@@ -21,7 +21,7 @@ This library is written in kotlin.
 Add the lib as a dependency to your build.gradle
 
 ```
-implementation 'se.svt.oss.lib:redisson-starter:1.1.0'
+implementation 'se.svt.oss:redisson-starter:1.1.0'
 ```
 
 
