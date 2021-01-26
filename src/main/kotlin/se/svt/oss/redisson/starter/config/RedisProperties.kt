@@ -21,6 +21,8 @@ class RedisProperties {
 
     var connectionMinimumIdleSize: Int? = null
 
+    var dnsMonitoringInterval: Long? = null
+
     var redisson = RedissonProperties()
 
     override fun toString(): String {

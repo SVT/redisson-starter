@@ -44,8 +44,8 @@ class RedissonAutoConfiguration {
                     .setDatabase(redisProperties.db)
                     .setAddress(redisProperties.uri.toString())
                     .setTimeout(redisProperties.redisson.timeout.toMillis().toInt())
-                    .setDnsMonitoringInterval(-1)
                     .apply {
+                        setDnsMonitoringInterval(redisProperties, this)
                         setConnectionPoolSize(redisProperties, this)
                         setSubscriptionConnectionPoolSize(redisProperties, this)
                         setSubscriptionsPerConnection(redisProperties, this)
@@ -71,6 +71,11 @@ class RedissonAutoConfiguration {
         val priorityQueue = redisson.getPriorityBlockingQueue<QueueItem>(redisProperties.redisson.queue.name)
         return RedissonLibQueue(priorityQueue)
     }
+
+    private fun setDnsMonitoringInterval(redisProperties: RedisProperties, config: SingleServerConfig) =
+        redisProperties.dnsMonitoringInterval?.let {
+            config.setDnsMonitoringInterval(it)
+        }
 
     private fun setConnectionPoolSize(redisProperties: RedisProperties, config: SingleServerConfig) =
         redisProperties.connectionPoolSize?.let {
