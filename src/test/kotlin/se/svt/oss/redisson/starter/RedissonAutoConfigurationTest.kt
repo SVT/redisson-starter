@@ -11,18 +11,23 @@ import org.redisson.api.RPriorityQueue
 import org.redisson.api.RedissonClient
 import org.redisson.config.Config
 import org.springframework.beans.factory.NoSuchBeanDefinitionException
+import se.svt.oss.junit5.redis.EmbeddedRedisExtension
 import se.svt.oss.redisson.starter.lock.RedissonLockService
 import se.svt.oss.redisson.starter.queue.RedissonLibQueue
 import se.svt.oss.redisson.starter.testutil.createApplicationContext
-import se.svt.util.junit5.redis.EmbeddedRedisExtension
 
 @ExtendWith(EmbeddedRedisExtension::class)
 class RedissonAutoConfigurationTest {
 
+    val redisUri = "redis://localhost:" + System.getProperty("embedded-redis.port")
+
     @Test
-    fun `objectMapper is created if none exists`() {
+    fun `objectMapper is created if none existAs`() {
         val context =
-            createApplicationContext(RedissonAutoConfiguration::class.java)
+            createApplicationContext(
+                RedissonAutoConfiguration::class.java,
+                "redis.uri" to redisUri
+            )
 
         context.getBean(ObjectMapper::class.java)
     }
@@ -30,7 +35,10 @@ class RedissonAutoConfigurationTest {
     @Test
     fun `Redisson config bean is instantiated`() {
         val context =
-            createApplicationContext(RedissonAutoConfiguration::class.java)
+            createApplicationContext(
+                RedissonAutoConfiguration::class.java,
+                "redis.uri" to redisUri
+            )
 
         context.getBean(Config::class.java)
     }
@@ -38,7 +46,10 @@ class RedissonAutoConfigurationTest {
     @Test
     fun `RedissonClient bean is created`() {
         val context =
-            createApplicationContext(RedissonAutoConfiguration::class.java)
+            createApplicationContext(
+                RedissonAutoConfiguration::class.java,
+                "redis.uri" to redisUri
+            )
         context.getBean(RedissonClient::class.java)
     }
 
@@ -47,7 +58,8 @@ class RedissonAutoConfigurationTest {
         val context =
             createApplicationContext(
                 RedissonAutoConfiguration::class.java,
-                "redis.redisson.lock.name-prefix" to "test-lock"
+                "redis.redisson.lock.name-prefix" to "test-lock",
+                "redis.uri" to redisUri
             )
         context.getBean(RedissonLockService::class.java)
     }
@@ -55,7 +67,10 @@ class RedissonAutoConfigurationTest {
     @Test
     fun `RedissonLockService bean is not created if lock name property is not set`() {
         val context =
-            createApplicationContext(RedissonAutoConfiguration::class.java)
+            createApplicationContext(
+                RedissonAutoConfiguration::class.java,
+                "redis.uri" to redisUri
+            )
         Assertions.assertThatThrownBy { context.getBean(RedissonLockService::class.java) }
             .isInstanceOf(NoSuchBeanDefinitionException::class.java)
     }
@@ -65,7 +80,8 @@ class RedissonAutoConfigurationTest {
         val queueName = "test-queue"
         val context = createApplicationContext(
             RedissonAutoConfiguration::class.java,
-            "redis.redisson.queue.name" to queueName
+            "redis.redisson.queue.name" to queueName,
+            "redis.uri" to redisUri
         )
         context.getBean(RedissonLibQueue::class.java)
     }
@@ -73,7 +89,10 @@ class RedissonAutoConfigurationTest {
     @Test
     fun `Redisson queue is not created if queue name property is not set`() {
         val context =
-            createApplicationContext(RedissonAutoConfiguration::class.java)
+            createApplicationContext(
+                RedissonAutoConfiguration::class.java,
+                "redis.uri" to redisUri
+            )
         Assertions.assertThatThrownBy { context.getBean(RPriorityQueue::class.java) }
             .isInstanceOf(NoSuchBeanDefinitionException::class.java)
     }
