@@ -66,12 +66,6 @@ private val redissonLockService = spyk(RedissonLockService(mockk(), mockk(relaxe
 
 run `./gradlew check` for unit tests and code quality checks
   
-## Update version and release to jcenter/bintray (for maintainers)
-
-1. Make sure you are on master branch and that everything is pushed to master
-2. ./gradlew release to tag a new version (this uses Axion release plugin). The new tag is automatically pushed to github,
-   and the github pipeline will build the project and publish the new version to bintray.
-
 ## License
 
 Copyright 2020 Sveriges Television AB
