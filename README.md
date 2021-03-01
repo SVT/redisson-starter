@@ -41,8 +41,7 @@ redis:
 ```
 
 For the lock service, name, wait-time and lease-time only configures default values that can be overriden when calling 
-the 
-lock service:
+the lock service:
 
 ```
 redissonLockService.tryWithLock(name = "my-other-lock", 
