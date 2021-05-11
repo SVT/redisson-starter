@@ -9,9 +9,6 @@ import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.verify
-import java.time.Duration
-import java.util.UUID
-import java.util.concurrent.TimeUnit
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.redisson.api.RLock
@@ -19,6 +16,9 @@ import org.redisson.api.RedissonClient
 import se.svt.oss.redisson.starter.config.RedisProperties
 import se.svt.oss.redisson.starter.config.RedissonLockProperties
 import se.svt.oss.redisson.starter.config.RedissonProperties
+import java.time.Duration
+import java.util.UUID
+import java.util.concurrent.TimeUnit
 
 internal class LockServiceTest {
 
