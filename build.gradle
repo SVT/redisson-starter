@@ -1,16 +1,17 @@
 plugins {
+    id "maven-publish"
     id 'idea'
     id 'java-library'
     id 'org.jmailen.kotlinter' version '3.3.0'
     id 'pl.allegro.tech.build.axion-release' version '1.10.2'
-    id "com.github.ben-manes.versions" version "0.22.0"
     id "io.spring.dependency-management" version "1.0.8.RELEASE"
     id 'org.jetbrains.kotlin.jvm' version '1.4.21'
     id "org.jetbrains.kotlin.plugin.spring" version '1.4.21'
     id 'org.jetbrains.kotlin.plugin.jpa' version '1.4.21'
     id 'com.github.fhermansson.assertj-generator' version '1.1.2'
     id 'org.owasp.dependencycheck' version '5.3.2.1'
-    id("se.svt.oss.gradle-yapp-publisher-plugin") version "0.1.10"
+    id "se.svt.oss.gradle-yapp-publisher-plugin" version "0.1.13"
+    id "se.ascp.gradle.gradle-versions-filter" version "0.1.8"
 }
 
 group = "se.svt.oss"
