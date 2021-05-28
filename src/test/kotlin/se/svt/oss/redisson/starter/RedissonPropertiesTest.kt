@@ -4,14 +4,14 @@
 
 package se.svt.oss.redisson.starter
 
-import java.net.URI
-import java.time.Duration
 import org.junit.jupiter.api.Test
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Configuration
 import se.svt.oss.redisson.starter.Assertions.assertThat
 import se.svt.oss.redisson.starter.config.RedisProperties
 import se.svt.oss.redisson.starter.testutil.createApplicationContext
+import java.net.URI
+import java.time.Duration
 
 class RedissonPropertiesTest {
 

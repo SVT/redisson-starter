@@ -4,11 +4,11 @@
 
 package se.svt.oss.redisson.starter.queue
 
-import java.time.LocalDateTime
-import java.util.UUID
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import se.svt.oss.redisson.starter.Assertions.assertThat
+import java.time.LocalDateTime
+import java.util.UUID
 
 internal class QueueItemTest {
 

@@ -4,9 +4,9 @@
 
 package se.svt.oss.redisson.starter.config
 
+import org.springframework.boot.context.properties.ConfigurationProperties
 import java.net.URI
 import java.time.Duration
-import org.springframework.boot.context.properties.ConfigurationProperties
 
 @ConfigurationProperties("redis")
 class RedisProperties {
