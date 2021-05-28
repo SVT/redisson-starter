@@ -15,7 +15,7 @@ plugins {
 }
 
 group = "se.svt.oss"
-project.version = scmVersion
+project.version = scmVersion.version
 
 sourceCompatibility = 11
 
